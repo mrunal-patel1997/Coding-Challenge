@@ -1,0 +1,64 @@
+import java.math.*; 
+import java.util.*;
+
+public class solution1 {
+
+	private static int size = 5;
+	private static int[] arrNums = new int[size];
+	private static int ranNumK;
+	
+	private static final int min = 1;
+	private static final int max = 20;
+	
+	private static int generateRandomNum () {
+		//each call generates a random number
+		Random rand = new Random();
+		return rand.nextInt((max - min) + 1) + min;
+	}
+	
+	public static void setK() {
+		ranNumK = generateRandomNum();
+		System.out.println("Value of K is: " + ranNumK);
+	}
+	
+	public static void setArr() {
+		for (int i = 0; i < arrNums.length; i++) {
+			arrNums[i] = generateRandomNum();
+		}
+		if ((numUnique(arrNums)) < 5 ) {
+			setArr();
+		}//make sure numbers are unique and random
+		else {
+			for (int i = 0; i < arrNums.length; i++) {
+				System.out.println("Value of element "+ i +" is: " + arrNums[i]);
+			}
+		}
+	}
+	
+	private static long numUnique (int[] list) {
+		return Arrays.stream(list).distinct().count();
+	}
+	
+	
+	public static boolean searchArr (int[] arr, int val) {
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == val){
+				return true;
+			}
+		}		
+		return false;
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		setK();
+		setArr();
+		
+		//to check run through the array starting at the first element
+		//subtract element from K
+			//if negative go to next element
+	}
+
+}

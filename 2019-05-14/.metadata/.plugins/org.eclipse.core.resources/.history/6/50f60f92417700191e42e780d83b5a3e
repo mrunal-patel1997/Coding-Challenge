@@ -1,0 +1,70 @@
+/**
+ * @author Mrunal Patel
+ * @date 2019-05-14
+ * @problem 1
+ */
+
+import java.util.*;
+
+public class solution1 {
+
+	private static int size = 10;
+	private static int[] arrNums = new int[size];
+	private static int ranNumK;
+	
+	private static final int min = 0;
+	private static final int max = 30;
+	
+	private static int generateRandomNum () {
+		//each call generates a random number
+		Random rand = new Random();
+		return rand.nextInt((max - min) + 1) + min;
+	}
+	
+	public static void setK() {
+		ranNumK = generateRandomNum();
+		System.out.println("Value of K is: " + ranNumK);
+	}
+	
+	public static void setArr() {
+		for (int i = 0; i < arrNums.length; i++) {
+			arrNums[i] = generateRandomNum();
+		}
+		if ((numUnique(arrNums)) < size) {
+			setArr();
+		}//make sure numbers are unique and random
+		else {
+			System.out.println(java.util.Arrays.toString(arrNums));
+		}
+	}
+	
+	private static long numUnique (int[] list) {
+		return Arrays.stream(list).distinct().count();
+	}
+	
+	public static boolean checkSum (int val, int arr[]) {
+		HashSet<Integer> h = new HashSet<Integer>();
+		
+		for (int i = 0; i < arrNums.length; i++) {
+			int temp = val - arr[i];
+			
+			if (temp >=0 && h.contains(temp)) {
+				System.out.println("TRUE, Given: " + val + ".");
+				System.out.println("Two numbers that sum to K are: " + arr[i] + ", " + temp);
+				return true;
+			}
+			h.add(arr[i]);
+		}
+		System.out.println("FALSE, Given K: " + val + ".");
+		System.out.println("Two numbers that sum to K do not exist.");
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		setK();
+		setArr();
+		checkSum(ranNumK, arrNums);
+
+	}
+
+}
